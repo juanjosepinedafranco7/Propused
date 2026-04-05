@@ -12,8 +12,7 @@
     <div class="background-overlay"></div>
 
     <section class="hero-section">
-        <div class="central-tulip-container">
-            </div>
+        <div class="central-tulip-container"></div>
         <div class="hero-text">
             <h1 class="romantic-title">Cada final feliz...</h1>
             <p class="marvel-title">COMIENZA AQUÍ</p>
@@ -22,17 +21,16 @@
     </section>
 
     <section class="gallery-flow">
-        <div class="flow-item"><img src="https://i.postimg.cc/ZR7k9TN0/dan1.jpg" alt="Momento 1"></div>
-        <div class="flow-item"><img src="https://i.postimg.cc/C1PyZF8B/dan2.jpg" alt="Momento 2"></div>
-        <div class="flow-item"><img src="https://i.postimg.cc/TYxSRLFq/dan3.jpg" alt="Momento 3"></div>
-        <div class="flow-item"><img src="https://i.postimg.cc/CL0tFBXC/dan4.jpg" alt="Momento 4"></div>
+        <div class="flow-item"><img src="https://i.postimg.cc/ZR7k9TN0/dan1.jpg" alt="1"></div>
+        <div class="flow-item"><img src="https://i.postimg.cc/C1PyZF8B/dan2.jpg" alt="2"></div>
+        <div class="flow-item"><img src="https://i.postimg.cc/TYxSRLFq/dan3.jpg" alt="3"></div>
+        <div class="flow-item"><img src="https://i.postimg.cc/CL0tFBXC/dan4.jpg" alt="4"></div>
     </section>
 
     <section class="proposal-final">
         <div class="proposal-content">
             <h1 class="romantic-title">Y mi final feliz...</h1>
             <p class="final-question">¿ERES TÚ?</p>
-            
             <div class="buttons-container">
                 <button class="btn btn-yes" onclick="celebrate()">¡SÍ!</button>
                 <button class="btn btn-no" id="btnNo">No</button>
@@ -43,22 +41,19 @@
     <div id="successOverlay" class="success-overlay">
         <div class="success-card">
             <h1>¡Misión Cumplida!</h1>
-            <p>Quiero vivir al 100% contigo esto❤️</p>
-            <p style="font-size: 1.1rem; margin-top: 15px; font-family: 'Poppins'; color: #aaa;">
-                Nuestra mejor historia comienza ahora.
+            <p>Te amo 3 millones... ❤️</p>
+            <p style="font-size: 1.1rem; margin-top: 20px; font-family: 'Poppins'; color: #fff; line-height: 1.6;">
+                Quiero estar contigo hasta que el tiempo diga lo contrario.
             </p>
         </div>
     </div>
 
     <script>
+        // Función de Celebración
         function celebrate() {
             const success = document.getElementById('successOverlay');
             success.style.display = 'flex';
-            
-            setTimeout(() => {
-                success.style.opacity = '1';
-            }, 10);
-
+            setTimeout(() => { success.style.opacity = '1'; }, 10);
             createSparkles(success);
         }
 
@@ -73,6 +68,7 @@
             }
         }
 
+        // Botón que escapa
         const btnNo = document.getElementById('btnNo');
         btnNo.addEventListener('mouseover', () => {
             const x = Math.random() * (window.innerWidth - btnNo.offsetWidth);
@@ -82,13 +78,17 @@
             btnNo.style.top = y + 'px';
         });
 
-        const imgs = document.querySelectorAll('.flow-item img');
-        document.addEventListener('mousemove', (e) => {
-            const x = (e.clientX - window.innerWidth / 2) * 0.02;
-            const y = (e.clientY - window.innerHeight / 2) * 0.02;
-            imgs.forEach(img => {
-                img.style.transform = `translate(${x}px, ${y}px)`;
+        const observerOptions = { threshold: 0.25 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
+        }, observerOptions);
+
+        document.querySelectorAll('.flow-item').forEach(item => {
+            observer.observe(item);
         });
     </script>
 </body>
